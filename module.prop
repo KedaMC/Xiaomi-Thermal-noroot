@@ -1,0 +1,8 @@
+id=keda
+name=disable thermal For Xiaomi
+version=1.0 stable
+versionCode=1
+author=Keda
+banner=k.png
+axeronPlugin=14500
+description=Stop the thermal daemon using the mqsas exploit method
