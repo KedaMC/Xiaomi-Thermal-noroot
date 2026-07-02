@@ -22,13 +22,13 @@ If you have a service different from those mentioned above, please let me know v
 
 1. Download the latest release `.zip` from the [Releases](../../releases) page
 2. Open AxManager
-3. Go to Modules → find disable-thermal_For_Xiaomi.zip and install
+3. Go to Modules → find xiaomi-thermal-noroot.zip and install
 4. Wait for installation to finish
 
 ## Usage
 
 1. Open AxManager
-2. Find `disable thermal For xiaomi` in your modules list
+2. Find `xiaomi thermal noroot` in your modules list
 3. Tap the Action button to toggle:
    - First tap  → thermal stopped (Status: On)
    - Second tap → thermal restarted (Status: Off)
