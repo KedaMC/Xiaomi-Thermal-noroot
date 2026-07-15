@@ -1,6 +1,6 @@
 id=keda
-name=disable thermal For Xiaomi
-version=1.0 stable
+name=Xiaomi Thermal noroot
+version=1.1 stable
 versionCode=1
 author=Keda
 banner=k.png
