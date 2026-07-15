@@ -32,10 +32,7 @@ If you have a service different from those mentioned above, please let me know v
 3. Tap the Action button to toggle:
    - First tap  → thermal stopped (Status: On)
    - Second tap → thermal restarted (Status: Off)
-4. when reboot phone, Tap the Action button to toggle:
-   - 2x tap  → thermal stopped (Status: On)
-   - next tap → thermal restarted (Status: Off)
-
+   
 ### Verify Service Status
 
 To manually check if the thermal services are actually running or stopped, run this command via AxManager's QuickShell, Brevent, or any terminal app:
