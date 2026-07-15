@@ -1,41 +1,42 @@
 #!/system/bin/sh
 
-FLAG='/data/local/tmp/module'
-LOG='/storage/emulated/0/log_on.txt'
-LOG_='/storage/emulated/0/log_off.txt'
+SERVICES="
+    mi_thermald
+    thermal
+    thermald
+    thermalloadalgod
+"
 
+LOG="/storage/emulated/0/log.txt"
 
-SERVICES='
-  mi_thermald
-  thermal
-  thermald
-  thermalloadalgod
-'
+mqsas_ctl() {
+    action="$1" 
+    svc="$2"
 
-ctrl() {
-  local act=$1
-  local log=$2
-  
-  for svc in $SERVICES; do
-    service call miui.mqsas.IMQSNative 21 i32 1 s16 'setprop' i32 1 \
-      s16 "ctl.$act $svc" s16 "$log" i32 60 > /dev/null
-  done
+    service call miui.mqsas.IMQSNative 21 \
+        i32 1 s16 'setprop' \
+        i32 1 s16 "ctl.$action $svc" \
+        s16 "$LOG" \
+        i32 600 > /dev/null 2>&1
 }
 
-if [ -f "$FLAG" ]; then
+apply_to_all() {
+    action="$1"
+    for svc in $SERVICES; do
+        mqsas_ctl "$action" "$svc"
+        log -t ToggleServices "mqsas $action $svc"
+\    done
+}
 
-  ctrl 'start' "$LOG_"
-  rm -f "$FLAG"
-  
-  echo 'No Gimmick, No Scam, all Done!'
-  echo 'Status: Off'
-  
+first_svc=$(echo "$SERVICES" | awk 'NF{print $1; exit}')
+current_state=$(getprop "init.svc.$first_svc")
+
+if [ "$current_state" = "running" ]; then
+    log -t ToggleServices "State: running -> stopping all services"
+    apply_to_all stop
+    echo "[-] Services stopped via mqsas"
 else
-
-  ctrl 'stop' "$LOG"
-  touch "$FLAG"
-  
-  echo 'No Gimmick, No Scam, all Done!'
-  echo 'Status: On'
-  
+    log -t ToggleServices "State: stopped -> starting all services"
+    apply_to_all start
+    echo "[+] Services started via mqsas"
 fi
