@@ -41,10 +41,6 @@ To manually check if the thermal services are actually running or stopped, run t
 getprop | grep -E "init.svc.(mi_thermald|thermal|thermald|thermalloadalgod)"
 ```
 
-A log file will be created at:
-- `/storage/emulated/0/log_on.txt` when stopped
-- `/storage/emulated/0/log_off.txt` when restarted
-
 ## Uninstall
 
 Uninstalling the module through your manager app will automatically restart all thermal services to restore default behavior.
